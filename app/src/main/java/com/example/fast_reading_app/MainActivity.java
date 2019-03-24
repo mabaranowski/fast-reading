@@ -13,6 +13,7 @@ import android.widget.ListView;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -45,20 +46,12 @@ public class MainActivity extends AppCompatActivity {
             applications.add(feedEntry);
         }
 
+
 //        File directory = context.getFilesDir();
 //        File file = new File(directory, filename);
 
+//        getApplicationContext().deleteFile("Title01");
 
-//        Context ctx = getApplicationContext();
-//        String content;
-//        FileInputStream fileInputStream = ctx.openFileInput(userEmalFileName);
-//        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-//        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//        try {
-//            content = bufferedReader.readLine();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
 
 
@@ -69,19 +62,30 @@ public class MainActivity extends AppCompatActivity {
         AdapterView.OnItemClickListener itemClick = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FeedEntry tmp = applications.get(position);
+                Intent intent = new Intent(getApplicationContext(), ReadActivity.class);
 
-                if(position == 0) {
-                    System.err.println("#1");
+                String content = null;
+                FileInputStream fileInputStream = null;
+
+                try {
+                    fileInputStream = getApplicationContext().openFileInput(tmp.getName());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
-                if(position == 1) {
-                    System.err.println("#2");
+
+                InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                try {
+                    content = bufferedReader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
+                intent.putExtra("CONTENT", content);
+                startActivity(intent);
 
-
-                FeedEntry tmp = (FeedEntry) listApps.getItemAtPosition(position);
-                System.err.println(tmp.toString());
-                //openReadActivity(tmp);
             }
         };
         listApps.setOnItemClickListener(itemClick);

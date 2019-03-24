@@ -1,5 +1,6 @@
 package com.example.fast_reading_app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,14 +25,18 @@ public class ReadActivity extends AppCompatActivity {
         mainTextView = findViewById(R.id.mainTextView);
         mainButton = findViewById(R.id.mainButton);
 
+        Intent intent = getIntent();
+        final String content = intent.getStringExtra("CONTENT");
+
+
         View.OnClickListener mainButtonListener = new View.OnClickListener() {
-            ListIterator<String> iterator = splitText(randomText).listIterator();
+            ListIterator<String> iterator = splitText(content).listIterator();
             boolean hold = true;
 
             @Override
             public void onClick(View v) {
                 if (!iterator.hasNext()) {
-                    iterator = splitText(txt).listIterator();
+                    iterator = splitText(content).listIterator();
                     hold = true;
                 }
 
@@ -47,7 +52,7 @@ public class ReadActivity extends AppCompatActivity {
                                             mainTextView.setText(iterator.next());
                                         }
                                     });
-                                    Thread.sleep(150);
+                                    Thread.sleep(300);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -64,8 +69,6 @@ public class ReadActivity extends AppCompatActivity {
 
     }
 
-    Intent intent = new Intent();
-    String txt = intent.getStringExtra("CONTENT");
     String randomText = "Tesla All-Wheel Drive has two independent motors. " +
             "Unlike traditional all-wheel drive systems, these two motors digitally control torque to the front and rear wheels—for far better handling and traction control. " +
             "Your car can drive on either motor, so you never need to worry about getting stuck on the road. " +

@@ -30,6 +30,11 @@ public class FeedAdapter extends ArrayAdapter {
     }
 
     @Override
+    public Object getItem(int position) {
+        return applications.get(position);
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
 
