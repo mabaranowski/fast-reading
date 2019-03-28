@@ -1,6 +1,5 @@
 package com.example.fast_reading_app;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +27,7 @@ public class ReadActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final String content = intent.getStringExtra("CONTENT");
 
-
+        final int delay = 300;
         View.OnClickListener mainButtonListener = new View.OnClickListener() {
             ListIterator<String> iterator = splitText(content).listIterator();
             boolean hold = true;
@@ -52,7 +51,7 @@ public class ReadActivity extends AppCompatActivity {
                                             mainTextView.setText(iterator.next());
                                         }
                                     });
-                                    Thread.sleep(300);
+                                    Thread.sleep(delay);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -69,16 +68,9 @@ public class ReadActivity extends AppCompatActivity {
 
     }
 
-    String randomText = "Tesla All-Wheel Drive has two independent motors. " +
-            "Unlike traditional all-wheel drive systems, these two motors digitally control torque to the front and rear wheels—for far better handling and traction control. " +
-            "Your car can drive on either motor, so you never need to worry about getting stuck on the road. " +
-            "If one motor stops working, you can safely continue to your destination with the second.";
-
     private ArrayList<String> splitText(String text) {
         list = new ArrayList<>(Arrays.asList(text.split(" ")));
         return list;
     }
-
-
 
 }

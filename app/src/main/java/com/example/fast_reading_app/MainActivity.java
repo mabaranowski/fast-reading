@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,50 +18,43 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private ListView listApps;
-    private ArrayList<FeedEntry> applications;
-    private FeedEntry feedEntry;
+    private ListView listView;
+    private ListEntry listEntry;
+    private ArrayList<ListEntry> files;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listApps = findViewById(R.id.xmlListView);
+        listView = findViewById(R.id.xmlListView);
 
         if(savedInstanceState != null) {
             //Example
             //feedUrl = savedInstanceState.getString(STATE_URL);
         }
 
-        feedEntry = new FeedEntry();
-        applications = new ArrayList<>();
+        listEntry = new ListEntry();
+        files = new ArrayList<>();
 
         Context context = getApplicationContext();
         String[] file = context.fileList();
 
         for (String name : file) {
-            feedEntry = new FeedEntry();
-            feedEntry.setName(name);
-            applications.add(feedEntry);
+            listEntry = new ListEntry();
+            listEntry.setName(name);
+            files.add(listEntry);
         }
 
+        //File directory = context.getFilesDir();
+        //getApplicationContext().deleteFile("Title01");
 
-//        File directory = context.getFilesDir();
-//        File file = new File(directory, filename);
-
-//        getApplicationContext().deleteFile("Title01");
-
-
-
-
-
-        FeedAdapter feedAdapter = new FeedAdapter(MainActivity.this, R.layout.list_record, applications);
-        listApps.setAdapter(feedAdapter);
+        ListAdapter listAdapter = new ListAdapter(MainActivity.this, R.layout.list_record, files);
+        listView.setAdapter(listAdapter);
 
         AdapterView.OnItemClickListener itemClick = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FeedEntry tmp = applications.get(position);
+                ListEntry tmp = files.get(position);
                 Intent intent = new Intent(getApplicationContext(), ReadActivity.class);
 
                 String content = null;
@@ -88,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
-        listApps.setOnItemClickListener(itemClick);
-
+        listView.setOnItemClickListener(itemClick);
 
     }
 
@@ -121,12 +112,6 @@ public class MainActivity extends AppCompatActivity {
         //Example
         //outState.putString(STATE_URL, feedUrl);
         super.onSaveInstanceState(outState);
-    }
-
-    private void openReadActivity(String content) {
-        Intent intent = new Intent(this, ReadActivity.class);
-        intent.putExtra("CONTENT", content);
-        startActivity(intent);
     }
 
 }

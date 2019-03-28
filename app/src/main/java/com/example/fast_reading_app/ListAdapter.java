@@ -2,7 +2,6 @@ package com.example.fast_reading_app;
 
 import android.content.Context;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,27 +10,27 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class FeedAdapter extends ArrayAdapter {
-    private static final String TAG = "FeedAdapter";
+public class ListAdapter extends ArrayAdapter {
+
     private final int layoutResource;
     private final LayoutInflater layoutInflater;
-    private List<FeedEntry> applications;
+    private List<ListEntry> files;
 
-    public FeedAdapter(Context context, int resource, List<FeedEntry> applications) {
+    public ListAdapter(Context context, int resource, List<ListEntry> files) {
         super(context, resource);
         this.layoutResource = resource;
         this.layoutInflater = LayoutInflater.from(context);
-        this.applications = applications;
+        this.files = files;
     }
 
     @Override
     public int getCount() {
-        return applications.size();
+        return files.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return applications.get(position);
+        return files.get(position);
     }
 
     @Override
@@ -47,9 +46,9 @@ public class FeedAdapter extends ArrayAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        FeedEntry currentApp = applications.get(position);
+        ListEntry currentFile = files.get(position);
 
-        viewHolder.name.setText(currentApp.getName());
+        viewHolder.name.setText(currentFile.getName());
 
         return convertView;
     }
@@ -58,7 +57,7 @@ public class FeedAdapter extends ArrayAdapter {
         final TextView name;
 
         ViewHolder(View v) {
-            this.name = (TextView) v.findViewById(R.id.name);
+            this.name = v.findViewById(R.id.name);
         }
     }
 }

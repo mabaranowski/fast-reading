@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.io.File;
 import java.io.FileOutputStream;
 
 public class TextActivity extends AppCompatActivity {
@@ -40,14 +39,11 @@ public class TextActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                openMainActivity();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         };
         submitButton.setOnClickListener(submitTextAction);
     }
 
-    private void openMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 }

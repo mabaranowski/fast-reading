@@ -1,6 +1,6 @@
 package com.example.fast_reading_app;
 
-public class FeedEntry {
+public class ListEntry {
 
     private String name;
     private String content;
