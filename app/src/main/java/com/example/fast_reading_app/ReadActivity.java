@@ -27,6 +27,9 @@ public class ReadActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final String content = intent.getStringExtra("CONTENT");
 
+        System.err.println("READ_ACTIVITY");
+        System.err.println(content);
+
         final int delay = 300;
         View.OnClickListener mainButtonListener = new View.OnClickListener() {
             ListIterator<String> iterator = splitText(content).listIterator();

@@ -2,8 +2,8 @@ package com.example.fast_reading_app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 ListEntry tmp = files.get(position);
                 Intent intent = new Intent(getApplicationContext(), ReadActivity.class);
 
-                String content = null;
+                StringBuilder content = new StringBuilder();
                 FileInputStream fileInputStream = null;
 
                 try {
@@ -70,12 +70,14 @@ public class MainActivity extends AppCompatActivity {
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                 try {
-                    content = bufferedReader.readLine();
+                    for (String line; (line = bufferedReader.readLine()) != null; ) {
+                        content.append(line).append('\n');
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                intent.putExtra("CONTENT", content);
+                intent.putExtra("CONTENT", content.toString());
                 startActivity(intent);
 
             }
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id) {
             case(R.id.addPdf):
+                startActivity(new Intent(MainActivity.this, PdfActivity.class));
                 break;
             case(R.id.addTxt):
                 startActivity(new Intent(MainActivity.this, TextActivity.class));
