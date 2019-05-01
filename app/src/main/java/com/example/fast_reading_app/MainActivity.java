@@ -4,10 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.io.BufferedReader;
@@ -21,23 +26,46 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private ListEntry listEntry;
     private ArrayList<ListEntry> files;
+    private ListAdapter listAdapter;
+
+    private Button addPdfButton;
+    private Button addTextButton;
+    private EditText searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.xmlListView);
+        addPdfButton = findViewById(R.id.addPdf);
+        addTextButton = findViewById(R.id.addText);
+        searchBar = findViewById(R.id.searchBar);
 
         if(savedInstanceState != null) {
-            //Example
-            //feedUrl = savedInstanceState.getString(STATE_URL);
+            //Example: feedUrl = savedInstanceState.getString(STATE_URL);
         }
+
+        View.OnClickListener addPdfActivity = (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, PdfActivity.class));
+            }
+        });
+        addPdfButton.setOnClickListener(addPdfActivity);
+
+        View.OnClickListener addTextActivity = (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TextActivity.class));
+            }
+        });
+        addTextButton.setOnClickListener(addTextActivity);
+
 
         listEntry = new ListEntry();
         files = new ArrayList<>();
 
-        Context context = getApplicationContext();
-        String[] file = context.fileList();
+        String[] file = getApplicationContext().fileList();
 
         for (String name : file) {
             listEntry = new ListEntry();
@@ -48,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         //File directory = context.getFilesDir();
         //getApplicationContext().deleteFile("Title01");
 
-        ListAdapter listAdapter = new ListAdapter(MainActivity.this, R.layout.list_record, files);
+        listAdapter = new ListAdapter(MainActivity.this, R.layout.list_record, files);
         listView.setAdapter(listAdapter);
 
         AdapterView.OnItemClickListener itemClick = new AdapterView.OnItemClickListener() {
@@ -84,6 +112,23 @@ public class MainActivity extends AppCompatActivity {
         };
         listView.setOnItemClickListener(itemClick);
 
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                (MainActivity.this).listAdapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     @Override
@@ -112,8 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //Example
-        //outState.putString(STATE_URL, feedUrl);
+        //Example outState.putString(STATE_URL, feedUrl);
         super.onSaveInstanceState(outState);
     }
 
