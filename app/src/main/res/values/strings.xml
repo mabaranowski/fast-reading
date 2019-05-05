@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Fast-Reading-App</string>
+    <string name="search">Search</string>
+    <string name="addPdf">Add PDF</string>
+    <string name="newText">New Text</string>
+    <string name="submit">Submit</string>
+    <string name="language">Language</string>
+    <string name="creator">Created by Mateusz Baranowski</string>
 </resources>
