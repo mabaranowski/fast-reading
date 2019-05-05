@@ -3,4 +3,11 @@
     <color name="colorPrimary">#00733D</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="darkGray">#252525</color>
+    <color name="lightGray">#F2F2F2</color>
+    <color name="yellow">#EBB926</color>
+    <color name="red">#D9333A</color>
+    <color name="green">#6AB04C</color>
+    <color name="midGray">#252525</color>
+    <color name="transparentMenu">#CC000000</color>
 </resources>
