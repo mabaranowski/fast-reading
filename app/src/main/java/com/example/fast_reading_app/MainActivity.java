@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private Button addTextButton;
     private EditText searchBar;
 
+    private ImageButton settingsButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         addPdfButton = findViewById(R.id.addPdf);
         addTextButton = findViewById(R.id.addText);
         searchBar = findViewById(R.id.searchBar);
+        settingsButton = findViewById(R.id.settingsButton);
 
         if(savedInstanceState != null) {
             //Example: feedUrl = savedInstanceState.getString(STATE_URL);
@@ -61,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
         });
         addTextButton.setOnClickListener(addTextActivity);
 
+        View.OnClickListener openSettings = (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MainMenuActivity.class));
+            }
+        });
+        settingsButton.setOnClickListener(openSettings);
 
         listEntry = new ListEntry();
         files = new ArrayList<>();
