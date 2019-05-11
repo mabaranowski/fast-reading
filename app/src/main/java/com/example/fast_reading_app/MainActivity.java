@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText searchBar;
 
     private ImageButton settingsButton;
+    private ImageButton editButton;
+    private ImageButton deleteButton;
+
+    private Boolean deleteVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         addTextButton = findViewById(R.id.addText);
         searchBar = findViewById(R.id.searchBar);
         settingsButton = findViewById(R.id.settingsButton);
+        editButton = findViewById(R.id.editButton);
+        deleteButton = findViewById(R.id.deleteButton);
 
         if(savedInstanceState != null) {
             //Example: feedUrl = savedInstanceState.getString(STATE_URL);
@@ -72,6 +80,43 @@ public class MainActivity extends AppCompatActivity {
         });
         settingsButton.setOnClickListener(openSettings);
 
+        View.OnClickListener openEdit = (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listView.setChoiceMode(listView.CHOICE_MODE_MULTIPLE);
+
+                if(deleteVisible) {
+                    deleteButton.setVisibility(View.INVISIBLE);
+                    listAdapter.setCheckBoxVisible(false);
+                } else {
+                    deleteButton.setVisibility(View.VISIBLE);
+                    listAdapter.setCheckBoxVisible(true);
+                }
+
+                deleteVisible = !deleteVisible;
+                listAdapter.notifyDataSetChanged();
+            }
+        });
+        editButton.setOnClickListener(openEdit);
+
+        View.OnClickListener deleteFromList = (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SparseBooleanArray checkedItemPositions = listAdapter.getItemStateArray();
+                int itemCount = listView.getCount();
+
+                for(int i = itemCount-1; i >= 0; i--){
+                    if(checkedItemPositions.get(i)){
+                        getApplicationContext().deleteFile(files.get(i).getName());
+                    }
+                }
+                checkedItemPositions.clear();
+                listAdapter.notifyDataSetChanged();
+                refresh();
+            }
+        });
+        deleteButton.setOnClickListener(deleteFromList);
+
         listEntry = new ListEntry();
         files = new ArrayList<>();
 
@@ -94,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ListEntry tmp = files.get(position);
                 Intent intent = new Intent(getApplicationContext(), ReadActivity.class);
+
+                System.err.println("HERE");
 
                 StringBuilder content = new StringBuilder();
                 FileInputStream fileInputStream = null;
@@ -138,6 +185,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    private void refresh() {
+        Intent refresh = new Intent(MainActivity.this, MainActivity.class);
+        refresh.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(refresh);
 
     }
 

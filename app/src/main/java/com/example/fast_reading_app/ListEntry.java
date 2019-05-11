@@ -6,6 +6,15 @@ public class ListEntry {
     private String content;
 
     private String path;
+    private Boolean isSelected;
+
+    public Boolean getSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
+    }
 
     public String getPath() {
         return path;

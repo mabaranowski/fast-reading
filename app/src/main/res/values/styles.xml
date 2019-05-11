@@ -21,4 +21,8 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="CustomCheckbox" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/green</item>
+    </style>
+
 </resources>
