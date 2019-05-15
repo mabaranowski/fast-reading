@@ -5,4 +5,6 @@
     <string name="submit">Zatwierdź</string>
     <string name="language">Język</string>
     <string name="creator">Stworzone przez Mateusz Baranowski</string>
+    <string name="title">Tytuł</string>
+    <string name="content">Tekst</string>
 </resources>

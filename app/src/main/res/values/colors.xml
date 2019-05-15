@@ -10,4 +10,5 @@
     <color name="green">#6AB04C</color>
     <color name="midGray">#252525</color>
     <color name="transparentMenu">#CC000000</color>
+    <color name="darkerLightGray">#787878</color>
 </resources>

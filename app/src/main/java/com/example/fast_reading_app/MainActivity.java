@@ -140,8 +140,6 @@ public class MainActivity extends AppCompatActivity {
                 ListEntry tmp = files.get(position);
                 Intent intent = new Intent(getApplicationContext(), ReadActivity.class);
 
-                System.err.println("HERE");
-
                 StringBuilder content = new StringBuilder();
                 FileInputStream fileInputStream = null;
 

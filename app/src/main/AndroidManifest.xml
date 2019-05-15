@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainMenuActivity"/>
-        <activity android:name=".TextActivity" />
+        <activity android:name=".TextActivity" android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ReadActivity"
             android:parentActivityName=".MainActivity" />
