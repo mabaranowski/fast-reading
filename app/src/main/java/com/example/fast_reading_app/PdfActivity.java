@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,7 +15,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.TextField;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 
 import java.io.File;
@@ -40,7 +38,7 @@ public class PdfActivity extends AppCompatActivity {
         listView = findViewById(R.id.pdfListView);
         pathField = findViewById(R.id.pathText);
         searchBar = findViewById(R.id.searchBar);
-        backButton = findViewById(R.id.backButton);
+        backButton = findViewById(R.id.backButton02);
 
         listEntry = new ListEntry();
         pdfs = new ArrayList<>();

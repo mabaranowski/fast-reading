@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -26,7 +25,7 @@ public class TextActivity extends AppCompatActivity {
         submitButton = findViewById(R.id.submitButton);
         editText = findViewById(R.id.editText);
         titleText = findViewById(R.id.titleText);
-        backButton = findViewById(R.id.backButton);
+        backButton = findViewById(R.id.backButton02);
 
         View.OnClickListener backToMain = (new View.OnClickListener() {
             @Override

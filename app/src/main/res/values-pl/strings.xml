@@ -7,4 +7,6 @@
     <string name="creator">Stworzone przez Mateusz Baranowski</string>
     <string name="title">Tytuł</string>
     <string name="content">Tekst</string>
+    <string name="speed">słow na minutę</string>
+    <string name="apply">Zastosuj</string>
 </resources>
