@@ -7,14 +7,14 @@
     tools:context=".ReadMenuActivity">
 
     <ImageButton
-        android:id="@+id/cancelButton02"
+        android:id="@+id/backButton04"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/back48"
+        android:background="@drawable/back_arrow"
         android:tint="@color/lightGray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/setting02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -35,15 +35,14 @@
         android:text="@string/speed"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.68"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cancelButton02"
+        app:layout_constraintTop_toBottomOf="@+id/backButton04"
         app:layout_constraintVertical_bias="0.061" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seekBarSpeed"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
         android:layout_width="0dp"
         android:layout_height="30dp"
@@ -53,12 +52,12 @@
         android:layout_marginBottom="8dp"
         android:max="16"
         android:minHeight="30dp"
-        android:progressDrawable="@drawable/seekbar01"
-        android:thumb="@drawable/seekthumb01"
+        android:progressDrawable="@drawable/seekbar_01"
+        android:thumb="@drawable/seekthumb_01"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/setting02"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
@@ -67,12 +66,12 @@
         android:layout_height="30dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="6dp"
-        android:background="@drawable/turtle52"
+        android:background="@drawable/turtle"
         android:tint="@color/lightGray"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBarSpeed"
+        app:layout_constraintEnd_toStartOf="@+id/seekBarSpeed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/seekBar" />
+        app:layout_constraintTop_toTopOf="@+id/seekBarSpeed" />
 
     <ImageButton
         android:id="@+id/rabbitIcon"
@@ -80,12 +79,12 @@
         android:layout_height="30dp"
         android:layout_marginStart="6dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/rabbit52"
+        android:background="@drawable/rabbit"
         android:tint="@color/lightGray"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBarSpeed"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/seekBar"
-        app:layout_constraintTop_toTopOf="@+id/seekBar" />
+        app:layout_constraintStart_toEndOf="@+id/seekBarSpeed"
+        app:layout_constraintTop_toTopOf="@+id/seekBarSpeed" />
 
     <TextView
         android:id="@+id/seekText"
@@ -97,11 +96,11 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintBottom_toBottomOf="@+id/setting02"
+        app:layout_constraintEnd_toStartOf="@+id/setting02"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="@+id/setting02" />
 
     <Button
         android:id="@+id/submitButton02"
@@ -110,7 +109,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/capsule_button_04"
+        android:background="@drawable/capsule_button_green"
         android:fontFamily="@font/quicksand_bold"
         android:text="@string/apply"
         android:textAllCaps="true"

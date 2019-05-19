@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
@@ -16,7 +15,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/back48"
+        android:background="@drawable/back_arrow"
         android:tint="@color/lightGray"
         app:layout_constraintBottom_toTopOf="@+id/titleText"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +32,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="56dp"
         android:fontFamily="@font/quicksand_medium"
-        android:gravity="top|left"
+        android:gravity="top|start"
         android:hint="@string/content"
         android:textColor="@color/lightGray"
         android:textSize="14sp"
@@ -44,7 +43,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:inputType="text"/>
 
     <EditText
         android:id="@+id/titleText"
@@ -54,14 +54,15 @@
         android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/quicksand_bold"
-        android:gravity="top|left"
+        android:gravity="top|start"
         android:hint="@string/title"
         android:textColor="@color/lightGray"
         android:theme="@style/AddEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:inputType="text"/>
 
     <Button
         android:id="@+id/submitButton"
@@ -71,7 +72,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/capsule_button_04"
+        android:background="@drawable/capsule_button_green"
         android:fontFamily="@font/quicksand_bold"
         android:text="@string/submit"
         android:textAllCaps="true"
@@ -81,7 +82,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"
         app:layout_constraintVertical_bias="1.0" />
-
-
 
 </android.support.constraint.ConstraintLayout>

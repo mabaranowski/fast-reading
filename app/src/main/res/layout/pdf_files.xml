@@ -21,18 +21,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/searchBar"
+        android:id="@+id/searchBar02"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/capsule_button_03"
+        android:background="@drawable/capsule_button_gray"
         android:fontFamily="@font/quicksand"
         android:gravity="center_vertical"
         android:hint="@string/search"
-        android:paddingLeft="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:textColor="@color/lightGray"
@@ -41,7 +42,8 @@
         app:layout_constraintBottom_toTopOf="@+id/pdfListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:inputType="text" />
 
     <TextView
         android:id="@+id/pathText"
@@ -52,11 +54,10 @@
         android:layout_marginEnd="56dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/quicksand_bold"
-        android:text="path"
         android:textAlignment="center"
         android:textColor="@color/darkerLightGray"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/searchBar"
+        app:layout_constraintBottom_toTopOf="@+id/searchBar02"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/backButton02"
         app:layout_constraintTop_toTopOf="parent" />
@@ -68,9 +69,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/back48"
+        android:background="@drawable/back_arrow"
         android:tint="@color/lightGray"
-        app:layout_constraintBottom_toTopOf="@+id/searchBar"
+        app:layout_constraintBottom_toTopOf="@+id/searchBar02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

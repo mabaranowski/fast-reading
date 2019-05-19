@@ -11,4 +11,5 @@
     <color name="midGray">#252525</color>
     <color name="transparentMenu">#CC000000</color>
     <color name="darkerLightGray">#787878</color>
+    <color name="semiDarkGray">#FF444444</color>
 </resources>
