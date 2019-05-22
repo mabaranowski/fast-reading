@@ -3,13 +3,11 @@ package com.example.fast_reading_app;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -24,34 +22,11 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
-        cancelButton = findViewById(R.id.cancelButton);
-        englishButton = findViewById(R.id.englishButton);
-        polishButton = findViewById(R.id.polishButton);
+        findByIds();
 
-        View.OnClickListener cancelClick = (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainMenuActivity.this, MainActivity.class));
-            }
-        });
         cancelButton.setOnClickListener(cancelClick);
-
-        View.OnClickListener englishClick = (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setLocale("en");
-            }
-        });
         englishButton.setOnClickListener(englishClick);
-
-        View.OnClickListener polishClick = (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setLocale("pl");
-            }
-        });
         polishButton.setOnClickListener(polishClick);
-
     }
 
     private void setLocale(String locale) {
@@ -71,7 +46,33 @@ public class MainMenuActivity extends AppCompatActivity {
         refresh.putExtra(currentLang, currentLang);
         refresh.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(refresh);
+    }
 
+    private View.OnClickListener cancelClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(MainMenuActivity.this, MainActivity.class));
+        }
+    };
+
+    private View.OnClickListener englishClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            setLocale("en");
+        }
+    };
+
+    private View.OnClickListener polishClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            setLocale("pl");
+        }
+    };
+
+    private void findByIds() {
+        cancelButton = findViewById(R.id.backButton03);
+        englishButton = findViewById(R.id.englishButton);
+        polishButton = findViewById(R.id.polishButton);
     }
 
 }

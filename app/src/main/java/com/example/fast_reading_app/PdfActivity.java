@@ -22,12 +22,14 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class PdfActivity extends AppCompatActivity {
+
     private ListView listView;
     private ListEntry listEntry;
     private TextView pathField;
     private EditText searchBar;
+
     private static final String DIRECTORY = "Documents";
-    private ArrayList<ListEntry> pdfs;
+    private ArrayList<ListEntry> pdfList;
     private ListAdapter listAdapter;
     private ImageButton backButton;
 
@@ -35,34 +37,23 @@ public class PdfActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pdf_files);
-        listView = findViewById(R.id.pdfListView);
-        pathField = findViewById(R.id.pathText);
-        searchBar = findViewById(R.id.searchBar);
-        backButton = findViewById(R.id.backButton02);
+        findByIds();
 
-        listEntry = new ListEntry();
-        pdfs = new ArrayList<>();
-
-        View.OnClickListener backToMain = (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PdfActivity.this, MainActivity.class));
-            }
-        });
         backButton.setOnClickListener(backToMain);
+        listView.setOnItemClickListener(itemClick);
 
-        String removableStoragePath = null;
-        File fileList[] = new File("/storage/").listFiles();
-        for (File file : fileList)
-        {     if(!file.getAbsolutePath().equalsIgnoreCase(Environment.getExternalStorageDirectory().getAbsolutePath())
-                && file.isDirectory() && file.canRead()) {
-                removableStoragePath = file.getAbsolutePath();
-                break;
-            }
-        }
-
-        String path = removableStoragePath + "/" + DIRECTORY;
+        String path = getRemovableStoragePath() + "/" + DIRECTORY;
         pathField.setText(path);
+        pdfList = getListOfPdfs(path);
+
+        listAdapter = new ListAdapter(PdfActivity.this, R.layout.list_record, pdfList);
+        listView.setAdapter(listAdapter);
+
+        searchBar.addTextChangedListener(searchFilter);
+    }
+
+    private ArrayList<ListEntry> getListOfPdfs(String path) {
+        ArrayList<ListEntry> tmpPdfList = new ArrayList<>();
 
         File inFileList[] = new File(path).listFiles();
         for (File file : inFileList) {
@@ -70,64 +61,94 @@ public class PdfActivity extends AppCompatActivity {
             listEntry.setName(file.getName());
             listEntry.setPath(file.getAbsolutePath());
 
-            pdfs.add(listEntry);
+            tmpPdfList.add(listEntry);
         }
 
-        listAdapter = new ListAdapter(PdfActivity.this, R.layout.list_record, pdfs);
-        listView.setAdapter(listAdapter);
+        return tmpPdfList;
+    }
 
-        AdapterView.OnItemClickListener itemClick = new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListEntry pdf = pdfs.get(position);
-                String title = pdf.getName();
-                String path = pdf.getPath();
-                String content = "";
+    private String getRemovableStoragePath() {
+        String removableStoragePath = null;
+        File fileList[] = new File("/storage/").listFiles();
+        for (File file : fileList) {
+            if (!file.getAbsolutePath().equalsIgnoreCase(Environment.getExternalStorageDirectory().getAbsolutePath())
+                    && file.isDirectory() && file.canRead()) {
+                removableStoragePath = file.getAbsolutePath();
+                break;
+            }
+        }
 
-                try {
-                    PdfReader reader = new PdfReader(path);
-                    int n = reader.getNumberOfPages();
+        return removableStoragePath;
+    }
 
-                    for (int i = 0; i < n ; i++) {
-                        content += PdfTextExtractor.getTextFromPage(reader, i + 1).trim() + "\n";
-                    }
+    private void backToMain() {
+        Intent intent = new Intent(PdfActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 
-                    reader.close();
-                } catch (Exception e) {
-                    System.out.println(e);
+    private View.OnClickListener backToMain = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(PdfActivity.this, MainActivity.class));
+        }
+    };
+
+    private AdapterView.OnItemClickListener itemClick = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            ListEntry pdf = pdfList.get(position);
+            String title = pdf.getName();
+            String path = pdf.getPath();
+            String content = "";
+
+            try {
+                PdfReader reader = new PdfReader(path);
+                int n = reader.getNumberOfPages();
+
+                for (int i = 0; i < n ; i++) {
+                    content += PdfTextExtractor.getTextFromPage(reader, i + 1).trim() + "\n";
                 }
 
-                FileOutputStream outputStream;
-                try {
-                    outputStream = openFileOutput(title, Context.MODE_PRIVATE);
-                    outputStream.write(content.getBytes());
-                    outputStream.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-            }
-        };
-        listView.setOnItemClickListener(itemClick);
-
-        searchBar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                reader.close();
+            } catch (Exception e) {
+                System.out.println(e);
             }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                (PdfActivity.this).listAdapter.getFilter().filter(s.toString());
+            FileOutputStream outputStream;
+            try {
+                outputStream = openFileOutput(title, Context.MODE_PRIVATE);
+                outputStream.write(content.getBytes());
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-            @Override
-            public void afterTextChanged(Editable s) {
+            backToMain();
+        }
+    };
 
-            }
-        });
+    private TextWatcher searchFilter = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            (PdfActivity.this).listAdapter.getFilter().filter(s.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
+    private void findByIds() {
+        listView = findViewById(R.id.pdfListView);
+        pathField = findViewById(R.id.pathText);
+        searchBar = findViewById(R.id.searchBar02);
+        backButton = findViewById(R.id.backButton02);
     }
 
 }

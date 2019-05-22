@@ -16,12 +16,9 @@ public class ReadActivity extends AppCompatActivity {
 
     private TextView mainTextView;
     private Button mainButton;
-    private ArrayList<String> list;
     private ImageButton backButton;
     private ImageButton settingsButton;
 
-    private Intent receiveIntent;
-    private Intent optionsIntent;
     private String content;
     private Integer wpm;
 
@@ -29,38 +26,19 @@ public class ReadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.read_txt);
-        mainTextView = findViewById(R.id.mainTextView);
-        mainButton = findViewById(R.id.mainButton);
-        backButton = findViewById(R.id.backButton02);
-        settingsButton = findViewById(R.id.settingsButton02);
+        findByIds();
 
-        View.OnClickListener backToHome = (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ReadActivity.this, MainActivity.class));
-            }
-        });
-        backButton.setOnClickListener(backToHome);
-
-
-        View.OnClickListener speedSettings = (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                optionsIntent = new Intent(ReadActivity.this, ReadMenuActivity.class);
-                optionsIntent.putExtra("CONTENT", content);
-                optionsIntent.putExtra("WPM", wpm);
-                startActivity(optionsIntent);
-            }
-        });
-        settingsButton.setOnClickListener(speedSettings);
-
-        receiveIntent = getIntent();
+        Intent receiveIntent = getIntent();
         content = receiveIntent.getStringExtra("CONTENT");
         wpm = receiveIntent.getIntExtra("WPM", 250);
 
-        final int delay = (60 * 1000) / wpm;
+        backButton.setOnClickListener(backToHome);
+        settingsButton.setOnClickListener(speedSettings);
+
         View.OnClickListener mainButtonListener = new View.OnClickListener() {
             ListIterator<String> iterator = splitText(content).listIterator();
+
+            final int delay = (60 * 1000) / wpm;
             boolean hold = true;
 
             @Override
@@ -96,12 +74,36 @@ public class ReadActivity extends AppCompatActivity {
             }
         };
         mainButton.setOnClickListener(mainButtonListener);
-
     }
 
     private ArrayList<String> splitText(String text) {
-        list = new ArrayList<>(Arrays.asList(text.split(" ")));
+        System.err.println(text);
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(text.split(" ")));
         return list;
+    }
+
+    private View.OnClickListener speedSettings = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent optionsIntent = new Intent(ReadActivity.this, ReadMenuActivity.class);
+            optionsIntent.putExtra("CONTENT", content);
+            optionsIntent.putExtra("WPM", wpm);
+            startActivity(optionsIntent);
+        }
+    };
+
+    private View.OnClickListener backToHome = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(ReadActivity.this, MainActivity.class));
+        }
+    };
+
+    private void findByIds() {
+        mainTextView = findViewById(R.id.mainTextView);
+        mainButton = findViewById(R.id.mainButton);
+        backButton = findViewById(R.id.backButton02);
+        settingsButton = findViewById(R.id.settingsButton02);
     }
 
 }
